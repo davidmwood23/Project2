@@ -1,34 +1,55 @@
-const express = require('express');
-const path= ('path');
-const db = require('../products/models');
-module.exports = function (app) {
-  // API Requests 
-  // GET Request
-  router.get('/api/products', function (req, res) {
-    db.products.findAll({}).then(function(response, error){
-        if(error){
-            res.json(error);
-        }
+const express = require("express");
+const router = express.Router();
+const db = require('../models');
+
+module.exports = function(router) {
+
+router.get('/api/products', function(req,res){
+  db.Product.findAll({}).then(function(response,error){
+    if(error){
+      res.json(error);
+    }
     res.json(response);
-    })
-
   })
-
-router.post('/api/products', function (req,res) {
-    db.products.create(req.body)
-    .then(function(response, error){
-        if(error){
-            res.json(error);
-        }
-    res.json(response)
-    })
 })
-
-router.get("/api/products/:id", function(req,res){
-    db.Products.findOne({where:{id:req.params.id}}).then(function(response, error){
-
-        
+  router.post('/api/products', function(req,res){
+    db.Product.create(req.body)
+    .then(function(response,error){
+      if(error)
+      res.json(response);
+    });
 })
 
 
-    module.exports = router;}
+//GET route for specified pet
+app.get('/api/pets/:id', function (req, res) {
+    db.Product.find({ where: { id: req.params.id } })
+    .then(function (data)  {
+        res.json(data)
+    
+    });
+});
+
+//PUT request
+app.put('/api/pets/:id', function (req, res) {
+    db.Product.update(
+        req.body,
+        { where: { id: req.params.id } }
+    ).then(function (response) {
+        res.json({ success: true });
+    
+    });
+});
+
+//DELETE request
+app.delete('/api/pets/:id', function (req, res) {
+    db.Product.destroy({ where: { id: req.params.id } })
+    .then(function ()  {
+        res.json( {success: true});
+    
+    });
+});
+
+};
+
+// module.exports = router

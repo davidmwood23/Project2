@@ -1,6 +1,6 @@
 $.ajax({
     url:'/api/products',
-    methond: 'GET'
+    method: 'GET'
 }).then(function(response){
     for(let i = 0; i < response.length; i++){
         let data = response[i];
@@ -14,6 +14,7 @@ $.ajax({
 
 $.ajax({
     url:'/api/products/:id',
+    method: 'GET'
 }).then(function(response){
     for(let i = 0; i < reponse.length; i++){
         let data = response[i];
@@ -21,7 +22,7 @@ $.ajax({
     }
 });
 
-$("#product-view").on("click", "get-prodcut", function(event){
+$("#product-view").on("click", "get-product", function(event){
     event.preventDefault();
 	let productId = $(this).data("id");
 	console.log(productId)
