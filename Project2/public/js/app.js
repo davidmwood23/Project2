@@ -1,5 +1,5 @@
 $.ajax({
-    url:'/api/products',
+    url:'/api/pets',
     method: 'GET'
 }).then(function(response){
     for(let i = 0; i < response.length; i++){

@@ -1,3 +1,4 @@
-body {
-background-image: url("./public/images/animal.png");
+body{
+    background-image: url("..images/animals.png");
+    background-repeat: repeat-x;
 }
