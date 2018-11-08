@@ -12,9 +12,13 @@ app.use(express.static("public"))
 app.use(express.urlencoded({ extend: true }));
 app.use(express.json())
 //require routes 
-require('./routes/html-Routes.js')(app);
+
+require('./routes/html-Routes.js')(app)
+const apiRoutes = require("./routes/api-routes.js")
+app.use(apiRoutes);
+
 // Starts our server on the predefined PORT...to remind us what port the app is running 
-db.sequelize.sync().then(function(){
+db.sequelize.sync({}).then(function(){
   //server listener
   app.listen(PORT, function(){
       console.log(`App is listening on ${PORT}`)

@@ -32,7 +32,6 @@ const items = [{
 ];
 
 db.sequelize.sync({
-  force: true
 }).then(function () {
   db.Users.bulkCreate(items).then(function (rows) {
     console.log('\n\nINSERTED\n\n');

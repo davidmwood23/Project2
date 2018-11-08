@@ -2,18 +2,26 @@ const express = require("express");
 const router = express.Router();
 const db = require('../models');
 
-module.exports = function(router) {
 
-router.get('/api/products', function(req,res){
-  db.Product.findAll({}).then(function(response,error){
+router.get('/api/pets', function(req,res){
+  db.Pets.findAll({}).then(function(response,error){
     if(error){
       res.json(error);
     }
     res.json(response);
   })
 })
-  router.post('/api/products', function(req,res){
-    db.Product.create(req.body)
+
+router.get('/api/pets/:id', function(req,res){
+    db.Pets.findAll({where: {id: req.params.id}}).then(function(response,error){
+      if(error){
+        res.json(error);
+      }
+      res.json(response);
+    })
+  })
+  router.post('/api/pets', function(req,res){
+    db.Pets.create(req.body)
     .then(function(response,error){
       if(error)
       res.json(response);
@@ -22,34 +30,33 @@ router.get('/api/products', function(req,res){
 
 
 //GET route for specified pet
-app.get('/api/pets/:id', function (req, res) {
-    db.Product.find({ where: { id: req.params.id } })
-    .then(function (data)  {
-        res.json(data)
+router.get('/api/pets/:id', function (req, res) {
+    db.Pets.find({ where: { id: req.params.id } })
+    .then(function (response, error)  {
+        res.json(response)
     
     });
 });
 
 //PUT request
-app.put('/api/pets/:id', function (req, res) {
-    db.Product.update(
+router.put('/api/pets/:id', function (req, res) {
+    db.Pets.update(
         req.body,
         { where: { id: req.params.id } }
     ).then(function (response) {
         res.json({ success: true });
-    
+        console.log("hello world");
     });
 });
 
 //DELETE request
-app.delete('/api/pets/:id', function (req, res) {
-    db.Product.destroy({ where: { id: req.params.id } })
+router.delete('/api/pets/:id', function (req, res) {
+    db.Pets.destroy({ where: { id: req.params.id } })
     .then(function ()  {
         res.json( {success: true});
     
     });
 });
 
-};
 
-// module.exports = router
+ module.exports = router
